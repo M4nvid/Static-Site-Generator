@@ -46,7 +46,7 @@ class ParentNode(HTMLNode):
     def __init__(self,
                   tag: str, 
                   children: list["HTMLNode"], 
-                  props: dict | None = None):
+                  props: dict [str, str] | None = None):
         super().__init__(tag, None, children, props)
 
     def to_html(self) -> str:
@@ -58,4 +58,7 @@ class ParentNode(HTMLNode):
         for child in self.children:
             html_string += child.to_html()
         return f"<{self.tag}{self.props_to_html()}>{html_string}</{self.tag}>"
+    
+    def __repr__(self) -> str:
+        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"
     
