@@ -4,13 +4,15 @@ from htmlnode import HTMLNode, ParentNode
 from inline_markdown import text_to_textnodes
 from textnode import TextNode, TextType, text_node_to_html_node
 
+
 class BlockType(Enum):
     PARAGRAPH = "paragraph"
     HEADING = "heading"
     CODE = "code"
     QUOTE = "quote"
-    UNORDERED_LIST = "unordered_list"
-    ORDERED_LIST = "ordered_list"
+    OLIST = "ordered_list"
+    ULIST = "unordered_list"
+
 
 def markdown_to_blocks(markdown: str) -> list[str]:
     blocks = markdown.split("\n\n")
@@ -21,6 +23,7 @@ def markdown_to_blocks(markdown: str) -> list[str]:
         block = block.strip()
         filtered_blocks.append(block)
     return filtered_blocks
+
 
 def block_to_block_type(block: str) -> BlockType:
     lines = block.split("\n")
@@ -47,6 +50,7 @@ def block_to_block_type(block: str) -> BlockType:
             i += 1
         return BlockType.OLIST
     return BlockType.PARAGRAPH
+
 
 def markdown_to_html_node(markdown: str) -> ParentNode:
     blocks = markdown_to_blocks(markdown)

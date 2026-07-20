@@ -2,6 +2,7 @@ import re
 
 from textnode import TextNode, TextType
 
+
 def text_to_textnodes(text: str) -> list[TextNode]:
     nodes = [TextNode(text, TextType.TEXT)]
     nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
@@ -10,6 +11,7 @@ def text_to_textnodes(text: str) -> list[TextNode]:
     nodes = split_nodes_image(nodes)
     nodes = split_nodes_link(nodes)
     return nodes
+
 
 def split_nodes_delimiter(
     old_nodes: list[TextNode], delimiter: str, text_type: TextType
@@ -32,6 +34,7 @@ def split_nodes_delimiter(
                 split_nodes.append(TextNode(sections[i], text_type))
         new_nodes.extend(split_nodes)
     return new_nodes
+
 
 def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
     new_nodes = []
@@ -85,6 +88,7 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
         if original_text != "":
             new_nodes.append(TextNode(original_text, TextType.TEXT))
     return new_nodes
+
 
 def extract_markdown_images(text: str) -> list[tuple[str, str]]:
     pattern = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
